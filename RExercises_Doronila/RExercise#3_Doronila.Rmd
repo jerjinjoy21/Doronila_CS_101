@@ -1,0 +1,394 @@
+---
+title: "Exercise 3"
+author: "Jerjin Joy Doronila"
+date: "2026-10-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part A - Creating Vectors: `c()`, `seq()`, `rep()`
+```{r}
+# TODO: Create a numeric vector called scores containing: 88, 92, 79, 95, 84
+scores <- c(88, 92, 79, 95, 84)
+# Then create a character vector called subjects containing:
+# "Math", "Science", "English", "History", "PE"
+subjects <- c("Math", "Science", "English", "History", "PE")
+scores
+subjects
+```
+
+```{r}
+# TODO: Use seq() to create a vector called odds containing odd numbers
+# from 1 to 19 (hint: use the "by" argument)
+odds <- seq(1,19, by = 2)
+odds
+```
+
+
+```{r}
+# TODO: Use seq() with length.out to create a vector of exactly 5 evenly
+# spaced numbers between 0 and 1
+seq(0,1, length.out = 5)
+```
+
+```{r}
+# TODO: Use rep() to create a vector that repeats the value "A" 4 times
+rep("A", 4)
+```
+
+
+```{r}
+# TODO: Use rep() with the "each" argument to turn c("A", "B") into
+# "A" "A" "B" "B" (each element repeated twice, in order)
+rep(c("A", "B"), each = 2)
+```
+
+
+```{r}
+# TODO: Use rep() with the "times" argument to turn c("A", "B") into
+# "A" "B" "A" "B" (the whole sequence repeated twice)
+rep(c("A", "B"), times = 2)
+```
+
+
+ 
+#### Question #1:
+Set up a vector named `age`, consisting of 15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8.
+```{r}
+age <- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+age
+```
+
+a. How many data points?
+```{r}
+age <- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+length(age)
+
+```
+- Answer: There are 34 data points in vector age.
+
+
+b. Find the reciprocal of age?
+```{r}
+age <- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+recip_age <- 1/age
+recip_age
+```
+
+
+c. Assign also `new_age <- c(age, 0, age)`. What happens to `new_age`?
+```{r}
+age <- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+new_age <- c(age, 0, age)
+new_age
+```
+- Answer: The values hold by the vector age are displayed two times wherein between is the 0 value.
+
+
+d: Find the minimum and the maximum value of age.
+```{r}
+age <- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+min(age)
+max(age)
+```
+- Answer: The minimum value of age is 8, while the maximum value of 57.
+
+
+#### Question #2:
+* `rep(c("A","B"), each = 2)` and `rep(c("A","B"), times = 2)` both produce a vector of length 4, but with different element orders.
+* Explain in your own words the difference between each and times.
+```{r}
+rep(c("A","B"), each = 2)  
+rep(c("A","B"), times = 2)
+```
+- Answer: The rep(c("A","B"), each = 2)  produce "A" and "B" twice separately while rep(c("A","B"), times = 2) produce "A" and "B" twice together.
+
+
+#### Question #3:
+* Compare `seq(1, 20, by = 2)` with `seq(1, 20, length.out = 5)`. What does each argument (`by` vs `length.out`) control, and when would you use one over the other in a real analysis?
+```{r}
+seq(1, 20, by = 2)
+seq(1, 20, length.out = 5)
+```
+- Answer: Based on the given above, I observed that the by argument control the numbers between the sequence from 1 to 20 through skipping numbers by a common difference of 2, with a common difference of 2. While the length.out argument control how many number of values or elements to display between 1 to 20 with 20 values, only displaying 5 numbers with a common difference of 4.75. I think by can be used for general type data analysis, while length.out can be used for deep data analysis like involving statistics that needs accurate or precise calculations.  
+
+
+#### Question #4:
+a. Generate a sequence for 20 to 60. Name the vector as `vec_num`
+```{r}
+vec_num <- seq(20,60)
+vec_num
+```
+- Answer: vec_num displayed values from 20 to 60.
+
+
+b. Get the mean for `vec_num`.
+```{r}
+vec_num <- seq(20,60)
+mean(vec_num)
+```
+- Answer: The mean of vec_num is 40.
+
+
+c. Get the sum for `vec_num`.
+```{r}
+vec_num <- seq(20,60)
+sum(vec_num)
+```
+- Answer: The cum of vec_num is 1640.
+
+
+d: How many data points are there in `vec_num`?
+```{r}
+c(vec_num)
+length(vec_num)
+```
+- Answer: vec_num has 41 data points.
+
+
+# Part B - Subsetting (Accessing) Vectors
+```{r}
+grades <- c(88, 92, 79, 95, 84)
+names(grades) <- c("Math", "Science", "English", "History", "PE")
+```
+
+```{r}
+# TODO: Access the 3rd element of grades using positional indexing
+grades[3]
+```
+
+```{r}
+# TODO: Access the 1st and 4th element of grades using positional indexing
+c(grades[1], grades[4])
+```
+
+
+```{r}
+# TODO: Access "Science" and "PE" together using their names
+c(grades["Science"], grades["PE"])
+```
+
+
+```{r}
+# TODO: Return all elements of grades EXCEPT the 1st and 4th, using
+# negative indexing, e.g. grades[-c(...)]
+grades[-c(1,4)]
+```
+
+
+```{r}
+# TODO: Use a logical condition to return only the grades that are
+# greater than or equal to 85 (hint: grades[grades >= 85])
+grades[grades >= 85]
+```
+
+
+#### Question #5:
+* Negative indexing `(grades[-1])` removes an element, while logical indexing `(grades[grades >= 85])` filters by a condition.
+
+* Describe a real situation where you would need negative indexing, and a different situation where logical indexing would be the better tool.
+- Answer: I think I would need negative indexing when I finish an agenda from my to do list such as finishing my Data Science Activity. Meanwhile, for logical indexing, I would apply it when I want to filter the individuals that paid the amount of less than 10 pesos for class funds in the first week of October.
+
+
+#### Question #6:
+* What happens if you run `grades[10]` (an index that doesn’t exist)? Run it, observe the result, and explain why R responds this way instead of throwing an error.
+```{r}
+grades[10]
+```
+- Answer: The result when I run grade[10] is NA, Not Applicable. R responds this way since the index doesn't exist, and NA is specifically designed for this kind of situation when you want to display the value hold by that index.
+
+
+
+#### Question #7:
+* Print a vector with the integers between 1 and 100 that are not divisible by 3, 5 and 7 using filter option.
+  `Filter(function(i) { all(i %% c(3,5,7) != 0) }, seq(100))`
+  Write the R code and its output.
+```{r}
+Filter(function(i) { all(i %% c(3,5,7) != 0) }, seq(100))
+```
+
+
+
+# Part C — Vector Operations and append()
+```{r}
+x <- c(1, 2, 3, 4)
+y <- c(10, 20, 30, 40)
+
+# TODO: Add x and y element-wise, and print the result
+result <- x + y
+print(result)
+
+# TODO: Multiply every element of x by 2
+x*2
+```
+
+
+
+```{r}
+z <- c(1, 2, 3, 4, 5, 6)
+short <- c(1, 0)
+
+# TODO: Add z and short together and print the result. Run this even
+# though the vectors are different lengths -- observe what R does.
+z + short
+```
+
+
+
+```{r}
+fruits <- c("apple", "banana", "cherry")
+
+# TODO: Use append() to add "date" to the end of fruits
+append(fruits, "date")
+# TODO: Use append() with the "after" argument to insert "kiwi" between
+# "apple" and "banana" (i.e., after position 1)
+append(fruits, "kiwi", after = 1)
+```
+
+
+
+#### Question #8:
+* In the `vectors-recycling` chunk, `z` has 6 elements and `short` has only 2. R still produced an answer instead of an error.
+
+* Explain, in your own words, what R’s “recycling rule” did to short to make the addition work.
+- Answer: By default, the first two indexes of z and short have their own pairs. To complete the addition process, the "recycling rule" did to short is repeating the 2 elements of shorts respectively to the other remaining 4 elements of z. R still perform to add z and short together to complete the process of the code, even though each vector has different length.
+
+  
+
+#### Question #9: Now try adding `z` (length 6) to `c(1, 0, 1)` (length 3) instead. Does it work cleanly?
+
+```{r}
+z <- c(1, 2, 3, 4, 5, 6)
+short <- c(1, 0, 1)
+z + short 
+```
+- Answer: It works cleanly when adding z (length 6) to c(1, 0, 1) (length 3) because 6 is a multiple of 3. R repeats the elements of the shorter vector to match the length of z, allowing the addition to proceed without a warning.
+
+* Then try adding `z` to `c(1, 0, 1, 1)` (length 4). Compare the warning (or lack of one) in each case, and explain what condition determines whether R recycles silently versus with a warning.
+```{r}
+z <- c(1, 2, 3, 4, 5, 6)
+short <- c(1, 0, 1, 1)
+z + short 
+```
+- Answer: R produces a warning because 6 is not divisible by 4. The addition still works, but the recycling is incomplete. R recycles silently when the longer vector's length is an exact multiple of the shorter vector's length, and produces a warning otherwise.
+
+
+
+# Part D — Lists: Creating and Subsetting
+```{r}
+# TODO: Create a list called student with these named elements:
+# name = "Maria Santos", age = 20, grades = c(88, 92, 79),
+# is_enrolled = TRUE
+student <- list(
+  name = "Maria Santos", 
+  age = 20, 
+  grades = c(88, 92, 79),
+  is_enrolled = TRUE
+  )
+student
+```
+
+
+
+```{r}
+# TODO: Access the "grades" element of student using single brackets
+# student["grades"] -- then check its type with class()
+student["grades"]
+class(student["grades"])
+```
+
+
+
+```{r}
+# TODO: Access the "grades" element of student using double brackets
+# student[["grades"]] -- then check its type with class()
+student[["grades"]]
+class(student[["grades"]])
+```
+
+
+
+```{r}
+# TODO: Access the "name" element of student using the $ operator
+# student$name
+student$name
+```
+
+
+
+```{r}
+# TODO: From student, extract just the SECOND grade in the grades vector
+# in a single expression, e.g. student[["grades"]][2] or student$grades[2]
+student$grades[2]
+```
+
+
+
+#### Question #10:
+* `student["grades"]` and `student[["grades"]]` look similar but return objects of different classes.
+
+* Run `class()` on each and explain the difference in what single-bracket `[ ]` versus double-bracket `[[ ]]` return from a list.
+```{r}
+class(student["grades"])
+class(student[["grades"]])
+```
+
+
+#### Question #11:
+* Why do you think R makes a distinction between `[ ]` and `[[ ]]` for lists, but a vector only needs `[ ]`? Think about what a list can contain that a vector cannot.
+- Answer: Using single brackets [ ] on a list returns another list containing the selected element, while double brackets [[ ]] extract the actual element itself. I think R makes this distinction because a list can contain different types of data, such as character, numeric, logical values, or even vectors and other lists. Double brackets allow us to directly access the specific element inside the list, while single brackets preserve its list structure. Meanwhile, vectors only need single brackets [ ] because their elements belong to the same data type and can be accessed directly through indexing.
+
+
+# Part E — Critical Thinking Challenge
+```{r}
+inventory <- list(
+  item = c("Notebook", "Pen", "Eraser"),
+  price = c(25.50, 10.00, 5.00),
+  in_stock = c(TRUE, TRUE, FALSE)
+)
+
+# TODO: Using what you learned in Parts B and D, print only the items
+# (from inventory$item) that are currently in stock (in_stock == TRUE)
+inventory$item[inventory$in_stock == TRUE]  
+```
+
+
+```{r}
+# TODO: A new product "Ruler" priced at 15.00 and in stock (TRUE) needs
+# to be added to inventory. Use append() to add "Ruler" to
+# inventory$item, 15.00 to inventory$price, and TRUE to inventory$in_stock.
+# (You will need three separate append() calls, one per vector.)
+inventory$item <- append(inventory$item, "Ruler")
+inventory$price <- append(inventory$price, 15.00)
+inventory$in_stock <- append(inventory$in_stock, TRUE)
+inventory$item 
+inventory$price 
+inventory$in_stock 
+```
+
+
+#### Question #12:
+* In `challenge-1`, you combined logical indexing on one vector (`in_stock`) to filter a different vector (`item`) inside the same list. Explain, step by step, why `inventory$item[inventory$in_stock]` works even though item and in_stock are stored as separate elements of the list.
+```{r}
+inventory$item[inventory$in_stock]
+```
+- Answer: The `item` and `in_stock` elements are stored separately in the `inventory` list, but their values correspond to each other based on their positions. First, `inventory$in_stock` retrieves the logical vector containing `TRUE`, `TRUE`, and `FALSE`. Second, R uses these logical values as an index for `inventory$item`. The `TRUE` values select the items in positions 1 and 2, while the `FALSE` value excludes the item in position 3. Therefore, `inventory$item[inventory$in_stock]` returns only `"Notebook"` and `"Pen"` because they are currently in stock.
+
+#### Question #13:
+* Suppose a classmate stores related data as three separate, unconnected vectors (`item_names`, `item_prices`, `item_stock`) instead of grouping them into one list like `inventory`. What risks or bugs could this create as the dataset grows or gets reordered? Argue for or against using a list (or, later, a data frame) instead of separate vectors.
+- Answer: Storing related data across separate, unconnected vectors introduces severe risks of data corruption as a dataset grows. The primary danger is index misalignment, which happens when one vector is modified, filtered, or appended without applying the exact same change to the others. For instance, deleting an entry from item_names without removing its corresponding value from item_prices shifts all subsequent prices up by one position, permanently pairing items with incorrect prices. Similarly, sorting item_prices on its own will reorder the prices while leaving item_names and item_stock in their original order, completely ruining the dataset's integrity. Using a list or data frame is far superior because it binds related variables into a single unified object, ensuring that row-level connections remain intact during sorting, subsetting, or passing data into functions.
+
+## Conclusion
+In 3–4 sentences, summarize the key differences between vectors and lists in R, and explain when you would choose one data structure over the other.
+- Answer: Vectors can store one set of the same type of data value, such as c(1, 2, 3) storing numeric values, and including a different data type causes it not to work well. In contrast, a list can store multiple vectors where each vector's data is related to one another. Ultimately, a vector can only handle a single data type, while a list can handle multiple related vectors that have different data types.
+
+
+### Lab Checklist Before Pushing to GitHub
+
+- [ ] All `# TODO` chunks are completed and run without errors
+- [ ] All "Think About It" questions are answered in full sentences
+- [ ] Document knits successfully to `RExercise#3_Doronila.html`
+- [ ] `git add`, `git commit`, and `git push` completed
