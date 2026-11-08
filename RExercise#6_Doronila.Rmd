@@ -1,0 +1,300 @@
+---
+title: 'RExercise #6'
+author: "Jerjin Joy Doronila"
+date: "2026-11-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Part A — Creating Data Frames
+```{r}
+# TODO: Create three vectors of equal length (5 students):
+# name (character): "Ana", "Ben", "Cid", "Dex", "Eli"
+name <- c("Ana", "Ben", "Cid", "Dex", "Eli")
+age <- c(20, 21, 19, 22, 20)
+passed <-c(TRUE, TRUE, FALSE, TRUE, FALSE)
+```
+Answer: These vectors store the names, ages, and passing status of five students. Each vector contains five elements, allowing them to be combined into a data frame with five rows.
+
+```{r}
+# TODO: Combine name, age, and passed into a data frame called students
+# using data.frame(name = name, age = age, passed = passed)
+students <- data.frame(name = name, age = age, passed = passed)
+# Print students
+students
+```
+Answer: This combines the three vectors into a data frame called `students`. Each vector becomes a separate column, while the corresponding elements form each student's record.
+
+
+```{r}
+# TODO: Check the type of the "name" column using typeof(students$name)
+typeof(students$name)
+# and class(students$name)
+class(students$name)
+```
+Answer: These functions identify the data type and class of the name column. `typeof()` shows its internal storage type, while `class()` identifies it as a character vector.
+
+
+```{r}
+# TODO: Now create a SECOND data frame called courses directly, without
+# separate vectors first, using data.frame() with these columns:
+# course_code = c("IS101", "IS102", "IS103")
+# units = c(3, 3, 2)
+# instructor = c("Dr. P. Reyes", "Dr. R. Santos", "Dr. S. Cruz")
+
+courses <- data.frame(
+  course_code = c("IS101", "IS102", "IS103"),
+  units = c(3, 3, 2),
+  instructor = c("Dr. P. Reyes", "Dr. R. Santos", "Dr. S. Cruz")
+)
+courses
+```
+Answer: This creates a data frame directly using `data.frame()` without creating separate vectors first. Each argument becomes a column containing the course code, units, and instructor.
+
+
+#### Question #1
+* You created students two different ways in concept: first from separate vectors, then courses directly inline.
+* Both approaches produce the same kind of object.
+* In your own words, explain why `data.frame()` requires every column argument to have the same length, and what error you would expect if they didn’t.
+
+##### Answer: `data.frame()` requires every column argument to have the same length so that each row represents a complete record with corresponding values. If any column argument has different length, then it causes error, which tells that a column argument store elements more or less than the fixed number of elements to be stored in columns.
+
+                  
+
+#### Question #2
+* A data frame is often described as “a list of vectors of equal length.”
+* Based on what you know about lists from a previous lab, explain why this description makes sense — specifically, why can each column hold a different data type while a single column cannot?
+
+##### Answer: A data frame is a list where each item in the list represents a column. Because a list can hold different types of things, each column in a data frame can store a different type of data (like characters in one column and numbers in another). However, an individual column is a single vector, and a vector can only hold one type of data at a time.
+
+
+
+# Part B — Subsetting Data Frames
+```{r}
+# TODO: Access the "age" column of students three different ways:
+# students$age
+# students[["age"]]
+# students["age"]  -- note: compare the output/class of this one to the others
+students$age
+students[["age"]]
+students["age"] 
+```
+Answer: These three methods access the age column in different ways. `$` and `[[ ]]` return the column as a vector, while `[ ]` returns it as a data frame.
+
+
+```{r}
+# TODO: Access the entire 2nd row of students using students[2, ]
+students[2, ]
+
+```
+Answer: This retrieves the entire second row of the students data frame, including the name, age, and passing status.
+
+
+```{r}
+# TODO: Access the value in row 3, column "name" using students[3, "name"]
+students[3, "name"]
+```
+Answer: This retrieves the name of the student in the third row by specifying the row number and column name.
+
+
+```{r}
+# TODO: Return only the rows of students where passed is TRUE
+# Hint: students[students$passed == TRUE, ]
+students[students$passed == TRUE, ]
+```
+Answer: This selects only the students whose passed value is `TRUE`, returning their complete records.
+
+
+```{r}
+# TODO: Return only the rows of students where passed is TRUE AND
+# age is greater than 19. Use the & operator to combine both conditions.
+students[students$passed == TRUE & students$age > 19, ]
+```
+Answer: This selects students who passed and whose age is greater than 19. The `&` operator requires both conditions to be TRUE for a row to be included.
+
+
+#### Question #3
+* `students["age"]` and students$age both seem to give you the age column, but `class()` reveals they are different types of objects.
+* Run `class()` on each and explain the difference, connecting it to what you learned about single vs. double brackets on lists in a previous lab.
+```{r}
+class(students["age"])
+class(students$age)
+```
+
+##### Answer: The main difference is that `students["age"]` returns a data frame, specifically a subset from the original data frame, while `students$age` is numeric since this involves extracting the age column directly as a vector.
+
+
+
+#### Question #4
+* In df-multiple-conditions, explain what the & operator is doing to the two logical vectors `(students$passed == TRUE and students$age > 19)` before that combined result is used to filter rows.
+What would change if you used | (OR) instead of & (AND)?
+```{r}
+# Logical condition using AND &
+students[students$passed == TRUE & students$age > 19, ]
+# Logical condition using OR |
+students[students$passed == TRUE | students$age > 19, ]
+```
+
+##### Answer: The `&` operator combines two logical vectors by checking whether both conditions are TRUE for each student. Only students who passed and are older than 19 will be included in the result. If I use | instead of &, a student will be included if either condition is TRUE, meaning they passed or are older than 19.
+
+
+# Part C — Data Frame Properties
+```{r}
+# TODO: Use str() on students to see the structure and types of each column
+students <- data.frame(name = c("Ana", "Ben", "Cid", "Dex", "Eli"), age = c(20, 21, 19, 22, 20),
+passed = c(TRUE, TRUE, FALSE, TRUE, FALSE)
+)
+str(students)
+
+```
+Answer: This displays the internal structure of the students data frame, including its number of observations, columns, and the data types of each column.
+
+
+```{r}
+# TODO: Use dim(), nrow(), and ncol() on students to report its size
+dim(students)
+nrow(students)
+ncol(students)
+```
+Answer: These functions show the size of the data frame. `dim()` displays the number of rows and columns together, while `nrow()` and `ncol()` show them separately.
+
+
+```{r}
+# TODO: Use names() (or colnames()) to list the column names of students
+names(students)
+```
+Answer: This lists the column names of the students data frame, allowing us to identify the available variables.
+
+
+```{r}
+# TODO: Use summary() on students to get summary statistics for each column
+summary(students)
+```
+Answer: This provides summary information for each column. Numeric columns show descriptive statistics, logical columns show counts of `TRUE` and `FALSE`, and character columns show information about their values.
+
+
+#### Question #5
+* Run `summary()` on students. Notice that the numeric column (age) and the logical column (passed) are summarized very differently from the character column (name).
+* Describe what kind of summary R produces for each of the three data types, and explain why a “mean” wouldn’t make sense for the name column.
+
+##### Answer: The `summary()` produces for each of the three data types differently. Since  `passed` column is logical, `summary()` only returns the mode of the variable (logical), and numbers of `FALSE`, `TRUE`, and `NA`. Then, `age` column is numeric, its summary includes the mean, minimum value, maximum value, the first quartile, and third quartile. Meanwhile, the `name` column is a character column, and its summary includes countable measurements such as length of elements, number of completely unique values, number of blank or empty strings, minimum number of characters found in the shortest text value, and maximum number of characters. Wherein,  a mean would not make sense for the name column because character values cannot be directly calculated as numeric mean in the first place.
+
+
+
+#### Question #6
+* `str()` and `summary()` both describe a data frame, but they show different information.
+* Based on what you observed, when would `str()` be more useful to you than `summary()`, and vice versa?
+```{r}
+str(students)
+```
+
+##### Answer: `str()` is more useful than `summary()` when I want to see the structure of a data frame, including the number of observations, variables, and the data type of each column. On the other hand, `summary()` is more useful when I want to see descriptive statistics of the data, such as the mean, median, minimum, maximum, and quartiles for numeric columns, or the counts of TRUE and FALSE for logical columns.
+
+
+# Part D — Data Frame Operations
+```{r}
+# TODO: Add a new column called year_level to students with values:
+# 2, 3, 1, 4, 2  (one per student, in the same order as the rows)
+year_level <- c(2, 3, 1, 4, 2)
+students <- cbind(students, year_level)
+students
+```
+Answer: This creates a vector containing the year level of each student and adds it as a new column to the students data frame using `cbind()`.
+
+
+```{r}
+# TODO: Remove the "passed" column from students by setting it to NULL
+# students$passed <- NULL
+students$passed <- NULL
+
+# Print students
+students
+```
+Answer: Setting students$passed to NULL removes the passed column from the existing data frame while keeping the remaining columns and their values.
+
+
+```{r}
+# TODO: Sort students by age in ascending order using order()
+# Hint: students[order(students$age), ]
+students[order(students$age), ]
+```
+
+
+
+```{r}
+# TODO: Sort students by age in DESCENDING order
+# Hint: use order(students$age, decreasing = TRUE), or order(-students$age)
+students[order(students$age, decreasing = TRUE), ]
+```
+
+
+
+#### Question #7
+* After removing the passed column, could you still run the filter from df-logical-filter `(students$passed == TRUE)`?
+* Explain what happens and why keeping track of a data frame’s current structure matters as you apply a sequence of operations to it.
+```{r}
+students[students$passed == TRUE, ]
+```
+
+##### Answer: No, after removing the passed column, the logical-filter `(students$passed == TRUE)` could not run properly, because we set `students$passed` as `NULL` before this filter, which the condition produces an empty logical vector, resulting in zero rows. This shows why it is important to keep track of the current structure of a data frame when performing multiple operations.
+
+
+#### Question #8
+* order() does not sort the data frame directly — it returns a vector of row positions.
+* Explain, step by step, how students[order(students$age), ] uses that position vector to reorder the whole data frame (all columns, not just age).
+
+##### Answer: First, R evaluates students$age to extract the target column which is `age` as a simple vector of numbers. Next, `order()` function processes this vector to determine the sorted positions and instead of sorting the numbers directly, it returns an integer vector containing the original row indices arranged in ascending order based on age (for example, `order(students$age)`) indicating row 2 has the smallest age, followed by row 3, and then row 1). This position vector is then fed into the row position slot of the square-bracket index operator `(students[rows, columns])`. Finally, because the column slot after the comma is left blank, R keeps every column attached to those rows, pulling each complete student record line-by-line in the new order specified by the position vector.
+
+
+# Part E — Critical Thinking Challenge
+
+```{r}
+grades <- data.frame(
+  name = c("Ana", "Ben", "Cid", "Dex", "Eli"),
+  midterm = c(85, 78, 92, 88, 70),
+  final = c(90, 82, 95, 84, 75)
+)
+grades
+```
+
+
+
+```{r}
+# TODO: Add a new column "average" to grades that holds the mean of
+# midterm and final for each student. Hint: (grades$midterm + grades$final) / 2
+grades$average <- (grades$midterm + grades$final) / 2
+grades
+```
+
+
+
+```{r}
+# TODO: Print only the rows of grades where remarks is "Failed",
+# showing just the name and average columns.
+# Hint: grades[grades$remarks == "Failed", c("name", "average")]
+grades$remarks <- ifelse(grades$average >= 75, "Passed", "Failed")
+grades[grades$remarks == "Failed", c("name", "average")]
+```
+
+
+
+#### Question #9
+* Suppose your instructor wants to know: “Which factor seems more responsible for a student’s final remark — a big drop between midterm and final, or a consistently low midterm score?”
+* Using only the tools from this lab (subsetting, new columns, sorting), describe — in plain language, code optional — the steps you would take with grades to start investigating that question.
+
+##### Answer: I would first create a new column called "drop" to calculate the difference between the midterm and final scores for each student. Then, I would sort the students by their biggest score drops and check their final remarks. Next, I would sort the students by their lowest midterm scores and compare their final remarks again. By comparing the two groups, I could investigate whether students with large score drops or consistently low midterm scores are more likely to receive a `"Failed"` remark. Moreover, this would help identify patterns, although it would not prove which factor is more responsible.
+
+
+# Conclusion
+* In 3–4 sentences, summarize what a data frame is, how it relates to vectors and lists from earlier labs, and why it is R’s primary structure for real-world tabular data.
+
+##### Answer: A data frame is a list of vectors, where each vector has the same number of elements and represents a column. It is related to vectors because each column contains data of the same type, and to lists because a data frame is a special kind of list. Data frames organize information into rows and columns, similar to tables. They are R's primary structure for real-world tabular data because they make it easy to store, organize, analyze, and manipulate data.
+
+### Lab Checklist Before Pushing to GitHub
+
+- [ ] All `# TODO` chunks are completed and run without errors
+- [ ] All "Think About It" questions are answered in full sentences
+- [ ] Document knits successfully to `RExercise#6_Doronila.html`
+- [ ] `git add`, `git commit`, and `git push` completed
