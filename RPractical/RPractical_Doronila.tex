@@ -1,0 +1,709 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={R Programming Practical Examination},
+  pdfauthor={Jerjin Joy Doronila},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{R Programming Practical Examination}
+\author{Jerjin Joy Doronila}
+\date{2026-11-11}
+
+\begin{document}
+\maketitle
+
+\subsubsection{Part A: Basic Operations}\label{part-a-basic-operations}
+
+\textbf{A1} Create v as the sequence 5, 10, 15,\ldots, 50 using
+\texttt{seq()}. Print its length, sum and mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{50}\NormalTok{, }\AttributeTok{by =} \DecValTok{5}\NormalTok{)}
+\NormalTok{v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  5 10 15 20 25 30 35 40 45 50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{length}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 27.5
+\end{verbatim}
+
+\textbf{A2} Create w that repeats the vector \texttt{c(1,\ 2,\ 3)} four
+times, and z that repeats each element of \texttt{c(1,\ 2,\ 3)} four
+times. Print both.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{w }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{w }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(w, }\DecValTok{4}\NormalTok{)}
+
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(z, }\AttributeTok{each =} \DecValTok{4}\NormalTok{)}
+
+\NormalTok{w}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 2 3 1 2 3 1 2 3 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 1 1 1 2 2 2 2 3 3 3 3
+\end{verbatim}
+
+\textbf{A3} Compute and print: the remainder of 17 divided by 5, the
+integer division of 17 by 5, 2 to the power 10, the square root of 144,
+and pi rounded to 3 decimals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{17} \SpecialCharTok{\%\%} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{17} \SpecialCharTok{\%/\%} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\SpecialCharTok{\^{}}\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1024
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{144}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pi }\OtherTok{\textless{}{-}} \FloatTok{3.1415926535897932384626433832795}
+\FunctionTok{round}\NormalTok{(pi, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.142
+\end{verbatim}
+
+\textbf{A4} Given a \textless- c(2, 4, 6, 8) and b \textless- c(1, 3, 5,
+7), print a + b, a * b, the logical comparison a \textgreater{} b, and
+the dot product sum(a*b).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{)}
+
+\NormalTok{a }\SpecialCharTok{+}\NormalTok{ b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  3  7 11 15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\SpecialCharTok{*}\NormalTok{ b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  2 12 30 56
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\SpecialCharTok{\textgreater{}}\NormalTok{ b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE TRUE TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(a}\SpecialCharTok{*}\NormalTok{b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100
+\end{verbatim}
+
+\textbf{A5} Use paste() to produce ``Student-1''
+``Student-2''Student-3''. Then identify the datatype of 42, 42L, ``42'',
+41, and TRUE. what are the inputs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste}\NormalTok{(}\StringTok{"Student{-}1"}\NormalTok{,}\StringTok{"Student{-}2"}\NormalTok{, }\StringTok{"Student{-}3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Student-1 Student-2 Student-3"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\DecValTok{42}\DataTypeTok{L}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "integer"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\StringTok{"42"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\DecValTok{41}\DataTypeTok{i}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "complex"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+\subsubsection{Part B: Data Frames and Conditonal
+Statements}\label{part-b-data-frames-and-conditonal-statements}
+
+\textbf{B1} Create a data frame \texttt{students} with 8 rows and these
+columns (use \texttt{stringAsFactor\ =\ FALSE}, sex is ``M''or ``F''):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{id =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{),}
+  \AttributeTok{name =} \FunctionTok{c}\NormalTok{(}\StringTok{"Alice"}\NormalTok{, }\StringTok{"Bruno"}\NormalTok{, }\StringTok{"Chen"}\NormalTok{, }\StringTok{"Dana"}\NormalTok{, }\StringTok{"Elif"}\NormalTok{, }\StringTok{"Farid"}\NormalTok{, }\StringTok{"Grace"}\NormalTok{, }\StringTok{"Hiro"}\NormalTok{),}
+  \AttributeTok{sex =} \FunctionTok{c}\NormalTok{(}\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{,}\StringTok{"M"}\NormalTok{,  }\StringTok{"F"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{), }\AttributeTok{stringAsFactor =} \ConstantTok{FALSE}\NormalTok{, }
+  \AttributeTok{section =} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"A"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{),}
+  \AttributeTok{midterm =} \FunctionTok{c}\NormalTok{(}\DecValTok{78}\NormalTok{, }\DecValTok{85}\NormalTok{, }\DecValTok{92}\NormalTok{, }\DecValTok{67}\NormalTok{, }\DecValTok{74}\NormalTok{, }\DecValTok{88}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{59}\NormalTok{),}
+  \AttributeTok{final =} \FunctionTok{c}\NormalTok{(}\DecValTok{82}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{96}\NormalTok{, }\DecValTok{71}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{93}\NormalTok{, }\DecValTok{65}\NormalTok{),}
+  \AttributeTok{attendance =} \FunctionTok{c}\NormalTok{(}\DecValTok{95}\NormalTok{, }\DecValTok{88}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{72}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{85}\NormalTok{, }\DecValTok{98}\NormalTok{, }\DecValTok{60}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{students}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id  name sex stringAsFactor section midterm final attendance
+## 1  1 Alice   F          FALSE       A      78    82         95
+## 2  2 Bruno   M          FALSE       B      85    79         88
+## 3  3  Chen   M          FALSE       A      92    96        100
+## 4  4  Dana   F          FALSE       C      67    71         72
+## 5  5  Elif   F          FALSE       B      74    80         90
+## 6  6 Farid   M          FALSE       C      88    91         85
+## 7  7 Grace   F          FALSE       A      95    93         98
+## 8  8  Hiro   M          FALSE       B      59    65         60
+\end{verbatim}
+
+\textbf{B2} Display the structure, dimensions, column names, and summary
+of \texttt{students}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    8 obs. of  8 variables:
+##  $ id            : int  1 2 3 4 5 6 7 8
+##  $ name          : chr  "Alice" "Bruno" "Chen" "Dana" ...
+##  $ sex           : chr  "F" "M" "M" "F" ...
+##  $ stringAsFactor: logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+##  $ section       : chr  "A" "B" "A" "C" ...
+##  $ midterm       : num  78 85 92 67 74 88 95 59
+##  $ final         : num  82 79 96 71 80 91 93 65
+##  $ attendance    : num  95 88 100 72 90 85 98 60
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8 8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "id"             "name"           "sex"            "stringAsFactor"
+## [5] "section"        "midterm"        "final"          "attendance"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(students)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        id              name          sex    stringAsFactor       section 
+##  Min.   :1.00   Length   :8   Length   :8   Mode :logical   Length   :8  
+##  1st Qu.:2.75   N.unique :8   N.unique :2   FALSE:8         N.unique :3  
+##  Median :4.50   N.blank  :0   N.blank  :0                   N.blank  :0  
+##  Mean   :4.50   Min.nchar:4   Min.nchar:1                   Min.nchar:1  
+##  3rd Qu.:6.25   Max.nchar:5   Max.nchar:1                   Max.nchar:1  
+##  Max.   :8.00                                                            
+##     midterm          final         attendance    
+##  Min.   :59.00   Min.   :65.00   Min.   : 60.00  
+##  1st Qu.:72.25   1st Qu.:77.00   1st Qu.: 81.75  
+##  Median :81.50   Median :81.00   Median : 89.00  
+##  Mean   :79.75   Mean   :82.12   Mean   : 86.00  
+##  3rd Qu.:89.00   3rd Qu.:91.50   3rd Qu.: 95.75  
+##  Max.   :95.00   Max.   :96.00   Max.   :100.00
+\end{verbatim}
+
+\textbf{B3} Add a column \texttt{average} = the mean of the midterm and
+final for each studen, rounded to 1 decimal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students}\SpecialCharTok{$}\NormalTok{average }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{c}\NormalTok{(students}\SpecialCharTok{$}\NormalTok{midterm, students}\SpecialCharTok{$}\NormalTok{final)), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{students}\SpecialCharTok{$}\NormalTok{average}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 80.9 80.9 80.9 80.9 80.9 80.9 80.9 80.9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id  name sex stringAsFactor section midterm final attendance average
+## 1  1 Alice   F          FALSE       A      78    82         95    80.9
+## 2  2 Bruno   M          FALSE       B      85    79         88    80.9
+## 3  3  Chen   M          FALSE       A      92    96        100    80.9
+## 4  4  Dana   F          FALSE       C      67    71         72    80.9
+## 5  5  Elif   F          FALSE       B      74    80         90    80.9
+## 6  6 Farid   M          FALSE       C      88    91         85    80.9
+## 7  7 Grace   F          FALSE       A      95    93         98    80.9
+## 8  8  Hiro   M          FALSE       B      59    65         60    80.9
+\end{verbatim}
+
+\textbf{B4} Add a logical column passed that is TRUE when average
+\textgreater= 70 and attendance \textgreater= 75.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students}\SpecialCharTok{$}\NormalTok{passed }\OtherTok{\textless{}{-}}\NormalTok{ students}\SpecialCharTok{$}\NormalTok{average }\SpecialCharTok{\textgreater{}=} \DecValTok{70} \SpecialCharTok{\&}\NormalTok{ students}\SpecialCharTok{$}\NormalTok{attendance }\SpecialCharTok{\textgreater{}=} \DecValTok{75}
+\NormalTok{students}\SpecialCharTok{$}\NormalTok{passed}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id  name sex stringAsFactor section midterm final attendance average passed
+## 1  1 Alice   F          FALSE       A      78    82         95    80.9   TRUE
+## 2  2 Bruno   M          FALSE       B      85    79         88    80.9   TRUE
+## 3  3  Chen   M          FALSE       A      92    96        100    80.9   TRUE
+## 4  4  Dana   F          FALSE       C      67    71         72    80.9  FALSE
+## 5  5  Elif   F          FALSE       B      74    80         90    80.9   TRUE
+## 6  6 Farid   M          FALSE       C      88    91         85    80.9   TRUE
+## 7  7 Grace   F          FALSE       A      95    93         98    80.9   TRUE
+## 8  8  Hiro   M          FALSE       B      59    65         60    80.9  FALSE
+\end{verbatim}
+
+\textbf{B5} Using ifelse(), add a column standing with these values
+based on average: . ``Honors'' if average \textgreater= 90 . ``Good'' if
+average \textgreater= 75 (and below 90) . ``Needs Support'' otherwise
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#students$remarks \textless{}{-} ifelse(average \textgreater{}= 90, "Honors", "Good")}
+\DocumentationTok{\#\#ifelse(average \textgreater{}= 75, "Good", "Needs Support")}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{B6} Write a function classify(score) that uses an if / else if /
+else chain and returns ``Distinction'' for 85 or above, ``Merit'' for 70
+to 84, ``Pass'' for 50 to 69, and ``Fail'' below 50. Test it with
+sapply(c(90, 73, 55, 40), classify) and print the result.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#classify(score) \textless{}{-} if()}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{Part c: \texttt{rbind()} and
+\texttt{cbind()}}{Part c: rbind() and cbind()}}\label{part-c-rbind-and-cbind}
+
+\textbf{C1} Create a data frame new\_students with two students. Its
+columns must match the original, including average, passed and standing,
+computed the same way: * id 9, Ines, F, section C, midterm 81, final 84,
+attendance 92 * id 10, Jamal, M, section A, midterm 70, final 68,
+attendance 80 Use \texttt{rbind()} to append them to students, saving
+the result as students\_all.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students\_all }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(students}\SpecialCharTok{$}\NormalTok{id, students}\SpecialCharTok{$}\NormalTok{section, students}\SpecialCharTok{$}\NormalTok{midterm, students}\SpecialCharTok{$}\NormalTok{final, students}\SpecialCharTok{$}\NormalTok{attendance)}
+\NormalTok{students\_all}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]  [,4] [,5] [,6] [,7] [,8]
+## [1,] "1"  "2"  "3"   "4"  "5"  "6"  "7"  "8" 
+## [2,] "A"  "B"  "A"   "C"  "B"  "C"  "A"  "B" 
+## [3,] "78" "85" "92"  "67" "74" "88" "95" "59"
+## [4,] "82" "79" "96"  "71" "80" "91" "93" "65"
+## [5,] "95" "88" "100" "72" "90" "85" "98" "60"
+\end{verbatim}
+
+\textbf{C2} Create the numeric vector quiz \textless- c(8, 7, 10, 6, 7,
+9, 10, 5, 8, 6). Use cbind() to attach it to students\_all as a column
+named quiz. Confirm the result is still a data frame with class().
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{quiz }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{students\_all }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(students\_all, quiz)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cbind(students_all, quiz): number of rows of result is not a
+## multiple of vector length (arg 2)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students\_all}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                               quiz
+## [1,] "1"  "2"  "3"   "4"  "5"  "6"  "7"  "8"  "8" 
+## [2,] "A"  "B"  "A"   "C"  "B"  "C"  "A"  "B"  "7" 
+## [3,] "78" "85" "92"  "67" "74" "88" "95" "59" "10"
+## [4,] "82" "79" "96"  "71" "80" "91" "93" "65" "6" 
+## [5,] "95" "88" "100" "72" "90" "85" "98" "60" "7"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(students\_all)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "matrix" "array"
+\end{verbatim}
+
+\textbf{C3} Create the matrix
+\texttt{m\ \textless{}-\ cbind(midterm\ =\ students\_all\$midterm,\ final\ =\ students\_all\$final})
+and use rbind()` to append a final row containing the column means,
+labelled ``mean''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#m \textless{}{-} cbind(midterm = students\_all$midterm, final = students\_all$final)}
+\DocumentationTok{\#\#mean \textless{}{-} rbind(students\_all, m)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{C4} In a comment (2-3 sentences), explain what error rbind()
+produces if the data frames have different column names, and show the
+output if you safely catch it with tryCatch()
+\texttt{tryCatch(rbind(students,\ bad),\ error\ =\ function(e)\ \{\ message("rbind\ failed:\ ",\ conditionMessage(e));\ NULL\ \})}.
+
+\subsubsection{Part D: Subsetting}\label{part-d-subsetting}
+
+Use students\_all (with quiz) for all questions, Print every result.
+
+D1 Extract the name column in three ways: \$, {[}{[}``name''{]}{]}, and
+{[} , ``nane''{]}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students\_all }\OtherTok{\textless{}{-}}\NormalTok{ students}
+\NormalTok{students\_all}\SpecialCharTok{$}\NormalTok{name}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Alice" "Bruno" "Chen"  "Dana"  "Elif"  "Farid" "Grace" "Hiro"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students\_all[[}\StringTok{"name"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Alice" "Bruno" "Chen"  "Dana"  "Elif"  "Farid" "Grace" "Hiro"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students\_all[ , }\StringTok{"name"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Alice" "Bruno" "Chen"  "Dana"  "Elif"  "Farid" "Grace" "Hiro"
+\end{verbatim}
+
+D2 Extract rows 2 to 5 and only the columns name, midterm, final.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students\_all[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id  name sex stringAsFactor section midterm final attendance average passed
+## 2  2 Bruno   M          FALSE       B      85    79         88    80.9   TRUE
+## 3  3  Chen   M          FALSE       A      92    96        100    80.9   TRUE
+## 4  4  Dana   F          FALSE       C      67    71         72    80.9  FALSE
+## 5  5  Elif   F          FALSE       B      74    80         90    80.9   TRUE
+\end{verbatim}
+
+D3 Using logical subsetting, select students withattendance' above 90.
+
+D4 Using subset(), select students of sex ``F'' in section ``A'' or
+``C'' whose final is at least 75; return only name, section and final.
+
+D5 Use which.max() and which.min() to report the name of the student
+with the highest and lowest average
+
+D6 Sort students\_all by average in descending order, then print the top
+3 rows.
+
+\subsubsection{Part E: Basic Factors}\label{part-e-basic-factors}
+
+El Convert section and sex in students\_all to factors with factor().
+Print levels() of each.
+
+E2 Use table() to count students per sex and per section.
+
+Median :4.5
+
+*Try the two-way table of sex by section. table(students\_all\$sex,
+students\_allSsection). What is the output?
+
+E3 Print as. integer() of the sex factor. In a comment, explain what the
+integers represent. E4 Create a new factor sex\_label from sex using
+factor() with levels = c(``F'', ``M'') and labels = ``,''Nale''). Add it
+to students\_all and print its levels().
+
+E5 Print sunmary() of sex\_label. Then, using logical subsetting and
+nean(), print the mean average for each level of sex\_label.
+
+\end{document}
