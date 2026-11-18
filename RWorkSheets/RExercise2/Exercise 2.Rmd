@@ -1,0 +1,250 @@
+---
+title: "Exercise 2"
+author: "Jerjin Joy Doronila"
+date: "2026-09-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Part A - Arithmetic Operations
+```{r}
+# TODO: Store 17 in a variable called a, and 5 in a variable called b
+a = 17
+b = 5
+```
+
+
+
+```{r}
+# Then print the results of: a + b, a - b, a * b, a / b
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+```
+
+
+
+```{r}
+# TODO: Using the same a and b, compute and print a %% b and a %/% b
+# a %% b = remainder of a / b
+# a %/% b = whole-number (integer) division
+print(a %% b)
+print(a %/% b)
+```
+
+
+
+```{r}
+# TODO: Print 2 raised to the power of 10 using the ^ operator
+print(2^10)
+```
+
+
+Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your own words, explain how these three results relate to each other mathematically.
+```{r}
+div_ab = a / b
+mod_ab = a / b
+wnumdiv_ab = a %/% b
+
+print(div_ab)
+print(mod_ab)
+print(wnumdiv_ab)
+```
+The three results relate to each mathematically because all three use the principle of division.
+
+
+Question #2: Predict the output of 10 %% 3 and 10 %/% 3 before running the code. Were you correct? If not, explain what you misunderstood.
+```{r}
+result1 = 10 %% 3
+result2 = 10 %/% 3
+```
+I predicted result1 is 1 and result2 is 3. Moreover, yes, I'm correct!
+
+
+### Part B — Basic Data Types: typeof(), class(), and mode()
+R has several basic data types: double (decimal numbers), integer, character (text), logical (TRUE/FALSE), and complex. typeof() reports the low-level storage type; class() reports the object’s class, which is sometimes more general.
+```{r}
+x <- 42
+y <- 42L        # the L suffix forces an integer
+z <- "42"
+w <- TRUE
+v <- 3 + 2i     # complex number
+
+# TODO: Use typeof() to check the type of each of x, y, z, w, v
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+```
+
+
+
+```{r}
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+```
+
+
+
+Question #3): x <- 42 and y <- 42L look almost identical, but typeof(x) and typeof(y) give different answers. Explain the difference in your own words.
+```{r}
+x <- 42  
+y <- 42L 
+typeof(x) 
+typeof(y)
+```
+The x and y variable have different data type. x use double data type while y use integer data type. I think a value's data type is double when the value has to "L" at the end, but it is an integer when you put "L"at the end of the value.
+
+
+
+Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
+```{r}
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+```
+The typeof() is different from class() since typeof() displays the data type used while class() displays the data frame (e.g., "numeric" instead of "double" for the value x = 42). Then, mode() is the same in all except for evaluating numbers, typeof() evaluate x as "double" while mode() evaluate it as "numeric".
+
+
+### Part C — Type Conversion (20 min)
+R can convert (coerce) values between types using functions like as.numeric(), as.integer(), as.character(), and as.logical().
+```{r}
+# Then check its type with typeof(), class(), and mode()
+num_string <- "123"
+as.numeric(num_string)
+```
+
+
+```{r}
+# TODO: Convert num_string to a numeric value using as.numeric()
+typeof(num_string)
+class(num_string)
+mode(num_string)
+
+```
+
+
+```{r}
+# TODO: Convert the number 0 and the number 1 to logical using as.logical()
+# What do you get?
+as.logical(0)
+as.logical(1)
+```
+
+
+```{r}
+bad_string <- "hello123"
+# TODO: Try converting bad_string to numeric using as.numeric()
+# Run this chunk and observe the warning message and the result
+as.numeric(bad_string)
+```
+Question #5: When you ran the conversion-fail chunk, R produced NA and a warning instead of stopping with an error.
+
+Why do you think R is designed to give a warning here rather than crashing the whole script?
+I think R designed to give warning here only rather than the whole script, to help us focus only to the error as R is designed of making scripts by chunks, and also prevent us from overwhelming finding where the error is.
+
+What are the risks of this behavior if you don’t read your warnings?
+When a early-script warning generates unexpected NA values or altered data structures, it causes cascading failures that obscure the true root cause, forcing you to spend time debugging a cryptic failure on line 200 rather than fixing the actual issue where it originated.
+
+
+Question #6: as.logical(0) and as.logical(1) convert to FALSE and TRUE.
+
+What do you think as.logical(2) and as.logical(-1)` will produce?
+I think as.logical(2) will produce TRUE and as.logical(-1) will produce FALSE.
+```{r}
+as.logical(2)
+as.logical(-1)
+```
+Test it, then explain the rule R seems to be following.
+I think it follows the principle of binary values, 0 as FALSE and 1 as TRUE, and any other values are all TRUE.
+
+### Part D — Strings, paste(), and paste0()
+Strings are stored as the character type. paste() joins strings with a space separator by default; paste0() joins them with no separator.
+
+
+```{r}
+# TODO: Print first_name and last_name using print() and/or cat()
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+print(first_name)
+cat(last_name)
+```
+
+```{r}
+# TODO: Use paste() to combine first_name and last_name into a full name
+paste(first_name, last_name)
+
+```
+
+
+```{r}
+# TODO: Use paste0() to do the same, and compare the two results
+paste0(first_name, last_name)
+```
+
+```{r}
+# TODO: Use paste() with the argument sep = "-" to join first_name and # last_name with a dash instead of a space
+sep = "-"
+paste(first_name, sep, last_name)
+```
+
+```{r}
+# TODO: Use paste0() to build the sentence:
+# "Juan Dela Cruz is 21 years old." by combining full_name, age, and text
+full_name <- "Juan Dela Cruz"
+age <- 21
+text <- " is "
+
+paste0(full_name, " is ", age, " years old.")
+```
+
+Question #7: paste() and paste0() produced different results for the same two strings. Explain exactly why, referencing what each function does by default.
+paste() combines two strings with a result that has no space in between. While paste0() combines two strings with a no space in between.
+
+Question #8: In the strings-numbers chunk, you combined a character string with a numeric variable (age) using paste0() without first converting age to a string.
+
+Did this cause an error? Explain what paste0() does internally to make this work, and how it relates to the type conversions you practiced in Part C.
+paste0() does not cause an error as it only combines.
+
+```{r}
+
+```
+
+### Part E — Critical Thinking Challenge
+
+
+```{r}
+# TODO: Predict, then test: what is the result of "5" + 5 in R?
+# Run it and read the error message carefully.
+#"5" + 5
+#Error in "5" + 5 : non-numeric argument to binary operator
+
+```
+
+
+Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
+
+Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
+I think R requires an explicit conversion because probably it is designed to specify what data type to use and how to use it.
+
+
+Question #10: Suppose a classmate writes a script that reads a column of “numbers” from a text file. The column looks numeric, but when they try sum() on it, R throws an error. Based on everything in this lab (types, typeof()/class()/mode(), conversion, warnings), write a short paragraph explaining what likely went wrong and the steps you’d take to diagnose and fix it.
+The "numbers" is from a text file, the problem is that they didn't specify what type of data used. Sp I would specify what data type should be used before applying them to sum().
+
+in R. Since R strictly requires what data type we have used. To diagnose, I would observe if the "numbers" inputted are double quoted or not. If double quoted, that is most likely the cause of error since a numeric element should have no double quote marks.
+
+### Conclusion
+In 3–4 sentences, summarize what you learned about how R handles different data types, and why understanding typeof()/class() and conversion functions matters before doing arithmetic or combining data.
+
+R handles different data types and each have different functions, that we need to initialize the variables first and specify what value you store in it. To check what data type is used, we use typeof() or class() and conversion functions matters before doing arithmetic or combining data. Because doing arithmetic or combining data needs a uniform input to cleanly process their function and produce the right output.
