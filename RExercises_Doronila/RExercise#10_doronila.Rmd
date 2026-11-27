@@ -1,0 +1,203 @@
+---
+title: 'R Lab: The apply Family at Glance'
+author: "Jerjin Joy Doronila"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+subtitle: apply(), lapply(), sapply(), mapply(), and tapply()
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+* So far, you have typed data directly into R using `c()` and `data.frame()`. In real projects, data almost always arrives as an external file (CSV, Excel, text) that someone else collected.
+
+* Use code chunks (`Ctrl + Alt + I`) to run the code.
+
+* Each part ends with Question # — answer these in full sentences based on what you observe when you run the code, not just what you expect.
+
+Note: You can add current date by using the `date: "2026-11-20"` in YAML.
+
+
+**Reminder: Do not use any AI tool. Answer it with your own words.**
+
+
+# Part A — Predict the Output
+**Note**: Do not forget the codes before answering each questions. Codes must also be visible.
+
+##### **Question #1**
+
+a. what is the output of each line? Explain briefly with your own words.
+```{r}
+m <- matrix(1:6, nrow = 2)
+ 
+# a) apply(m, 1, sum)
+apply(m, 1, sum)
+# b) apply(m, 2, sum)
+apply(m, 2, sum)
+# c) class(lapply(1:3, function(i) i^2))
+class(lapply(1:3, function(i) i^2))
+# d) sapply(1:3, function(i) i^2)
+sapply(1:3, function(i) i^2)
+# e) sapply(c('a', 'bb', 'ccc'), nchar)
+sapply(c('a', 'bb', 'ccc'), nchar)
+# f) mapply(function(x, y) x * y, 1:3, 4:6)
+mapply(function(x, y) x * y, 1:3, 4:6)
+# g) tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+```
+
+a) apply(m, 1, sum)
+- Answer: The output is 9 12 because each of this is the sum of values in each row.
+b) apply(m, 2, sum)
+- Answer: The output is 3  7 11 because each of this is the sum of values in each column.
+c) class(lapply(1:3, function(i) i^2))
+- Answer: The output is "list" since `lapply()` function stores the squared values (1, 4, 9) in a list.
+d) sapply(1:3, function(i) i^2)
+- Answer: The output is  1 4 9 since it squares each number from 1 to 3.
+e) sapply(c('a', 'bb', 'ccc'), nchar)
+- Answer: It counts the characters in each string, which returns the vector-
+  a  bb ccc 
+  1   2   3 
+f) mapply(function(x, y) x * y, 1:3, 4:6)
+- Answer: The output is  4 10 18, because it multiplies corresponding values from both vectors.
+g) tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+- Answer: It groups the values by category and calculates their sums, producing 40 for group u and 60 for group v.
+
+
+##### **Question #2:**
+
+b. Use this data for b.1 and b.2
+```{r}
+scores <- matrix(c(70, 85, 90,
+                   60, 75, 80,
+                   88, 92, 79),
+                 nrow = 3, byrow = TRUE,
+                 dimnames = list(c('Ana', 'Ben', 'Cara'), c('Math', 'Sci', 'Eng')))
+ 
+temps <- list(Mon = c(30, 32, 31), Tue = c(29, 33), Wed = c(31, 34, 35, 30))
+scores
+temps
+```
+
+b.1 Find (a) each student’s average, (b) each subject’s highest score, and (c) the name of the best subject for each student. Use apply function.
+```{r}
+# (a) each student’s average
+apply(scores, 1, mean)
+# (b) each subject’s highest score
+apply(scores, 2, max)
+# (c) the name of the best subject for each student. Use apply function
+apply(scores, 1, function(scores) names(scores)[which.max(scores)])
+```
+
+
+b.2 For temps, compute the mean, the number of readings, and the range for each day. Use lapply() for one, sapply() for another, and vapply() for a third, and explain why the range result is a matrix.
+```{r}
+mean_temps <- lapply(temps, mean)
+no_of_readings_temps <- sapply(temps, length)
+range_temps <- vapply(temps, function(temps) {
+  c(Min = min(temps), Max = max(temps))
+}, numeric(2))
+mean_temps
+no_of_readings_temps
+range_temps
+```
+Answer: Each day produces two values: 1) Minimum temperature and 2) Maximum temperature. Since `vapply()` receives `numeric(2)`, it organizes the results into a matrix with two rows and one column per day.
+
+
+##### **Question #3:**
+
+a. Two loans have principals `1000` and `2000`, rates `5%` and `4%`, and `terms 2 and 3 years`. Compute the final amount `p * (1 + r)^n` for each with `mapply()`. Then rewrite it so that the rate is a fixed `4.5%` using `MoreArgs`.
+
+```{r}
+mapply(function(p, r, n) p * (1 + r)^n,
+       p = c(1000, 2000),
+       r = c(0.05, 0.04),
+       n = c(2, 3))
+
+mapply(function(p, r, n) p * (1 + r)^n,
+       p = c(1000, 2000),
+       n = c(2, 3), 
+       MoreArgs =  list(r =  0.045))
+```
+
+
+
+##### **Question #4:**
+
+a. Use `iris` dataset. (a) Mean `Sepal.Length` of iris for each species. (b) The number of cars in mtcars for every combination of `cyl and am`. (c) Mean `mpg` per `cyl`, ignoring missing values (add `na.rm = TRUE`)
+
+```{r}
+# (a) Mean `Sepal.Length` of iris for each species.
+tapply(iris$Sepal.Length, iris$Species, mean)
+# (b) The number of cars in mtcars for every combination of `cyl and am`.
+with(mtcars, table(cyl, am))
+# (c) Mean `mpg` per `cyl`, ignoring missing values (add `na.rm = TRUE`
+tapply(mtcars$mpg, mtcars$cyl, mean, na.rm = TRUE)
+```
+
+
+
+# Part A — Debugging
+##### **Question #5**:
+Each snippet has a mistake. Find it, explain it in one sentence and fix it.
+a. 
+```{r}
+# Mistake 1: sapply(list(a = 1:3, b = 4:6), mean())
+
+# Fixed code
+numbers <- list(a = 1:3, b = 4:6)
+sapply(numbers, mean)
+```
+- Answer: The problem is that `mean()` is called without supplying an argument. `sapply()` needs the function itself, not the result of calling the function.
+
+
+
+b. expected one mean per column of a 3 x 2 matrix, got three numbers apply(matrix(1:6, nrow = 3), 1, mean)
+```{r}
+# Mistake 2: apply(matrix(1:6, nrow = 3), 1, mean)
+
+# Fixed code
+apply(matrix(1:6, nrow = 3), 2, mean)
+```
+- Answer: In `apply()`, `MARGIN = 1` signifies to apply the mean function by row producing 3 numbers, but since the given question expects one mean per column, then `MARGIN = 2` should be used instead, producing 2 numbers.
+
+
+
+c. wanted the class of each column
+```{r}
+# Mistake 3: 
+# df <- data.frame(n = c(1, 2), s = c('a', 'b'))
+# apply(df, 2, class)
+
+# Fixed code
+df <- data.frame(n = c(1, 2), s = c('a', 'b'))
+sapply(df, class)
+```
+Answer: `apply()` converts a data frame into a matrix before processing it, and since the data frame contains both numeric and character columns, R converts the entire matrix to character, which resulting in an incorrect class output. Using `sapply(df, class)` preserves each column's original data type and correctly returns `"numeric"` for `n` and `"character"` for `s`.
+
+
+##### **Question #6:**
+
+a. Explain in your own words the difference between `lapply()` and `sapply()`. When would you choose `vapply()` instead?
+- Answer: The difference between `lapply()` and `sapply()` is their output types, since `lapply()` returns a list type output, while `sapply()` tries to simplify the result of the output. Then, `vapply()` can be used when you want to make sure the output has a specific type and structure instead of letting R guess.
+
+
+b. A colleague computes group means with `lapply(split(x, g), mean)`. Which function gives the same result in one call, and what does it return?
+```{r}
+x <- c(10, 20, 30, 40)
+g <- c("A", "B", "A", "B")
+lapply(split(x, g), mean)
+tapply(x, g, mean)
+```
+
+- Answer: `tapply()` gives the same result by applying the mean function directly to each group without using `split()`, and it returns an array of group means which is usually a named vector for one grouping variable.
+
+
+*Lab checklist before pushing to GitHub:*
+
+- [x] **Document knits successfully to `RExercise#10_lastname.html` and `RExercise#10_lastname.pdf`**
+- [x] **`git add`, `git commit`, and `git push` completed**
